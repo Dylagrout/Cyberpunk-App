@@ -50,4 +50,88 @@ button {
     .left-column, .right-column {
         width: 100%;
     }
+    .stats-row {
+        flex-direction: column; /* Stack STAT sections vertically on small screens */
+    }
+}
+.stats-section {
+    margin-bottom: 20px;
+}
+
+.stat-boxes {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.stat-box {
+    flex: 1 1 calc(10% - 10px); /* Ensure 10 boxes fit horizontally */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px;
+    color: #000000;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.derived-stats-box {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+}
+
+.derived-stats-box h4 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.derived-stats {
+    font-size: 1.1em;
+    color: #333;
+}
+
+.derived-stats div {
+    margin: 5px 0;
+}
+/* Skills Section */
+.skills-section {
+    margin-bottom: 15px;
+}
+
+.skill-group {
+    margin-bottom: 10px;
+}
+
+
+.skill-group h4 {
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+.skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-item {
+    flex: 1 1 calc(20% - 10px); /* Adjust for 5 items per row */
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    background-color: rgb(0, 0, 0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.stat-box.preferred {
+    border: 2px solid #4CAF50; /* Highlight preferred STATs */
+    background-color: #ffffff;
+}
+
+.skill-item.preferred {
+    border: 2px solid #2196F3; /* Highlight preferred Skills */
+    background-color: #000000;
 }

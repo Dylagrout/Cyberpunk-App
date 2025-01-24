@@ -1,4 +1,7 @@
 const roles = ['Solo', 'Netrunner', 'Medtech', 'Rockerboy', 'Lawman', 'Executive', 'Tech', 'Media', 'Fixer', 'Nomad'];
+const sex = ['Male', 'Female', 'Both'];
+const gender = ['Cis', 'Transgender', 'Non-Binary'];
+const sexuality = ['Heterosexual', 'Homosexual', 'Bisexual', 'Pansexual', 'Asexual']
 const culturalOrigins = [
     { region: "North America", languages: ["English", "Chinese", "Cree", "Creole", "French", "Navajo", "Spanish"] },
     { region: "South/Central America", languages: ["English", "Creole", "German", "Guarani", "Mayan", "Portuguese", "Quechua", "Spanish"] },
@@ -31,7 +34,18 @@ const familyBackground = [
     { background: "Reclaimers", description: "You started out on the road, but then moved into one of the deserted ghost towns or cities to rebuild it. A pioneer life: dangerous, but with plenty of simple food and a safe place to sleep. You were home schooled if there was anyone who had the time." },
     { background: "Edgerunners", description: "Your home was always changing based on your parents' current 'job'. Could be a luxury apartment, an urban conapt, or a dumpster if you were on the run. Food and shelter ran the gamut from gourmet to kibble." },
 ];
-const environment = ['Ran on The Street, with no adult supervision.', 'Spent in a safe Corp Zone walled off from the rest of the City', 'In a Nomad Pack moving from place to place.', 'In a Nomad pack with roots in transport (ships, planes, caravans).', 'In a decaying, once upscale neighborhood, now holding off the bossters to survive.', 'In the heart of the Combat Zone, living in a wrecked building or other squat.', 'In a huge "megastructure" building controlled by a Corp or the City.', 'In the ruins of a deserted town or city taken over by Reclaimers.', 'In a Drift Nation (a floating offshore city) that is a meeting place for all kinds of people.', 'In a Corporate luxury "starscraper," high above the rest of the teeming rabble.'];
+const environment = [
+    { description: 'Ran on The Street, with no adult supervision.', neighborhoods:["Little Europe", "Upper Marina", "Watson", "Watson (Kabuki)", "Heywood", "Santo Domingo", "Rancho Coronado", "New Westbrook", "Pacifica"]},
+    { description: 'Spent in a safe Corp Zone walled off from the rest of the City', neighborhoods:["Executive Zone", "NorCal Military Base"]},
+    { description: 'In a Nomad Pack moving from place to place.', neighborhoods:["Badlands", "Reclaimed Perimeter", "Santo Domingo", "Rancho Coronado"]},
+    { description: 'In a Nomad pack with roots in transport (ships, planes, caravans).', neighborhoods:["Badlands", "Reclaimed Perimeter", "Santo Domingo", "Rancho Coronado"]},
+    { description: 'In a decaying, once upscale neighborhood, now holding off the boosters to survive.', neighborhoods:["Little China", "Old Japantown", "Rancho Coronado", "Santo Domingo", "Hot Zone", "Heywood", "New Westbrook"]},
+    { description: 'In the heart of the Combat Zone, living in a wrecked building or other squat.', neighborhoods:["Old Combat Zone", "Old Japantown", "South Night City", "Little China", "Hot Zone"]},
+    { description: 'In a huge "megastructure" building controlled by a Corp or the City.', neighborhoods:["Heywood", "Santo Domingo", "Watson", "Watson (Kabuki)", "Rancho Coronado", "Heywood", "New Westbrook" ]},
+    { description: 'In the ruins of a deserted town or city taken over by Reclaimers.', neighborhoods:["Reclaimed Perimeter", "Badlands"]},
+    { description: 'In a Drift Nation (a floating offshore city) that is a meeting place for all kinds of people.', neighborhoods:["Drift Nations"]},
+    { description: 'In a Corporate luxury "starscraper," high above the rest of the teeming rabble.', neighborhoods:["Executive Zone", "Upper Marina", "Little Europe", "The Glen", "Pacifica"]}
+];
 const familyCrisis = ['Your family lost everything through betrayal.', 'Your family lost everything through bad management.', 'Your family was exiled or otherwise driven from their original home/nation/Corporation.', 'Your family is imprisoned, and you alone escaped.', 'Your family vanished. You are the only remaining member.', 'Your family was killed, and you were the only survivor.', 'Your family is involved in a long-term conspiracy, organization, or association, such as a crime family or revolutionary group.', 'Your family was scattered to the winds due to misfortune.', 'Your family is cursed with a hereditary feud that has lasted for generations.', 'You are the inheritor of a family debt; you must honor this debt before moving on with your life.'];
 const friendType = ['Like an older sibling to you.', 'Like a younger sibling to you.', 'A teacher or mentor.', 'A partner or coworker.', 'A former lover.', 'An old enemy', 'Like a parent to you.', 'An old childhood friend.', 'Someone you know from the Street', 'Someone with a common interest or goal.'];
 const enemyType = ['Ex-friend', 'Ex-lover', 'Estranged relative', 'Childhood enemy', 'Person working for you', 'Person you work for', 'Partner or coworker', 'Corporate Exec', 'Government official', 'Boosterganger'];
@@ -120,3 +134,98 @@ const nomadLifepath = {
     philosophy: ["Always working for good; your Pack accepts others, just wants to get along.", "It's more like a family business. Operates as a fair and honest concern.", "Will occasionally slip and do unethical things, but it's rare.", "Willing to bend the rules whenever they get in the way to get what the Pack needs.", "Ruthless and self-centered, willing to do some bad things if it will get the Pack ahead.", "Totally evil. You rage up and down the highways, killing, looting, and just terrorizing everyone."],
     nomadEnemy: ["Organized Crime", "Boostergangs", "Drug Runners", "Dirty Politicians", "Rival Packs in the same business", "Dirty Cops"],
 }
+
+const skillsByStat = {
+    INT: [
+        "Conceal/Reveal Object", "Lip Reading", "Perception", "Tracking", "Accounting",
+        "Animal Handling", "Bureaucracy", "Business", "Composition", "Criminology",
+        "Cryptology", "Deduction", "Education", "Gamble", "Library Search", "Science", "Tactics", "Wilderness Survival"
+    ],
+    REF: [
+        "Drive Land Vehicle", "Pilot Air Vehicle (x2)", "Pilot Sea Vehicle", "Riding", "Archery",
+        "Autofire (x2)", "Handgun", "Heavy Weapons (x2)", "Shoulder Arms"
+    ],
+    DEX: [
+        "Athletics", "Contortionist", "Dance", "Stealth", "Brawling", "Evasion",
+        "Martial Arts (x2)", "Melee Weapon"
+    ],
+    TECH: [
+        "Play Instrument", "Air Vehicle Tech", "Basic Tech", "Cybertech", "Demolitions",
+        "Electronics/Security Tech (x2)", "First Aid", "Forgery", "Land Vehicle Tech",
+        "Paint/Draw/Sculpt", "Paramedic (x2)", "Photography/Film", "Pick Lock", "Pick Pocket",
+        "Sea Vehicle Tech", "Weaponstech"
+    ],
+    COOL: [
+        "Acting", "Bribery", "Interrogation", "Persuasion", "Personal Grooming",
+        "Streetwise", "Trading", "Wardrobe & Style"
+    ],
+    WILL: [
+        "Concentration", "Resist Torture/Drugs"
+    ],
+    LUCK: [],
+    MOVE: [],
+    BODY: [],
+    EMP: [
+        "Conversation", "Human Perception"
+    ]
+};
+
+const defaultSkills = {
+    "Athletics": 2, "Brawling": 2, "Concentration": 2, "Conversation": 2, "Education": 2,
+    "Evasion": 2, "First Aid": 2, "Human Perception": 2, "Language (Streetslang)": 2,
+    
+    "Perception": 2, "Persuasion": 2, "Stealth": 2
+};
+const rolePreferences = {
+    Rockerboy: {
+        primaryStats: ["COOL", "EMP", "WILL"],
+        secondaryStats: ["DEX", "REF"],
+        preferredSkills: ["Play Instrument", "Wardrobe & Style", "Personal Grooming", "Melee Weapon", "Handgun", "Streetwise", "Brawling", "Evasion", "First Aid", "Human Perception", "Persuasion", "Composition"],
+    },
+    Solo: {
+        primaryStats: ["COOL", "REF", "DEX"],
+        secondaryStats: ["BODY", "WILL", "INT"],
+        preferredSkills: ["Shoulder Arms", "Interrogation", "Resist Torture/Drugs", "Evasion", "First Aid", "Melee Weapon", "Autofire (x2)", "Handgun", "Perception", "Streetwise", "First Aid", "Tactics"],
+    },
+    Netrunner: {
+        primaryStats: ["REF", "TECH", "DEX"],
+        secondaryStats: ["INT", "WILL", "LUCK"],
+        preferredSkills: [ "Basic Tech", "Education", "Conceal/Reveal Object", "Evasion", "Stealth", "Handgun", "Cybertech", "Electronics/Security Tech (x2)", "Cryptography", "Library Search"],
+    },
+    Tech: {
+        primaryStats: ["TECH", "INT", "REF"],
+        secondaryStats: ["DEX", "EMP"],
+        preferredSkills: ["Education", "Evasion", "First Aid", "Basic Tech", "Cybertech", "Electronics/Security Tech (x2)", "Shoulder Arms", "Air Vehicle Tech", "Land Vehicle Tech", "Sea Vehicle Tech", "Weaponstech", "Science", ],
+    },
+    Medtech: {
+        primaryStats: ["TECH", "INT", "EMP"],
+        secondaryStats: ["DEX", "REF", "WILL"],
+        preferredSkills: ["Concentration", "Resist Torture/Drugs", "Drive Land Vehicle", "Endurance", "Evasion", "Shoulder Arms", "Handgun", "Human Perception", "Basic Tech", "Cybertech", "First Aid", "Paramedic (x2)", "Deduction", "Education", "Library Search", "Science" ],
+    },
+    Executive: {
+        primaryStats: ["COOL", "INT"],
+        secondaryStats: ["EMP", "LUCK", "DEX", "REF"],
+        preferredSkills: ["Concentration", "Lip Reading", "Acting", "Handgun", "Bribery", "Conversation", "Human Perception", "Persuasion", "Personal Grooming", "Wardrobe & Style", "Forgery", "Accounting", "Bureaucracy", "Business", "Deduction", "Education", "Gamble"],
+    },
+    Media: {
+        primaryStats: ["INT", "COOL", "EMP"],
+        secondaryStats: ["DEX", "WILL", "REF"],
+        preferredSkills: ["Concentration", "Conceal/Reveal Object", "Lip Reading", "Perception", "Resist Torture/Drugs", "Stealth", "Library Search", "Education", "Deduction", "Composition", "Bureaucracy", "Photography/Film", "Paint/Draw/Sculpt", "Forgery", "Wardrobe & Style", "Streetwise", "Personal Grooming", "Persuasion", "Conversation", "Human Perception", "Bribery", "Handgun", "Acting"],
+    },
+    Lawman: {
+        primaryStats: ["WILL", "REF", "COOL"],
+        secondaryStats: ["DEX", "BODY", "INT"],
+        preferredSkills: ["Concentration", "Conceal/Reveal Object", "Perception", "Tracking", "Resist Torture/Drugs", "Athletics", "Endurance", "Stealth", "Drive Land Vehicle", "Riding", "Brawling", "Evasion", "Martial Arts (x2)", "Melee Weapon", "Handgun", "Shoulder Arms", "Acting", "Autofire (x2)", "Bribery", "Conversation", "Human Perception", "Interrogation", "Forgery", "Criminology", "Deduction", "Library Search", "Tactics"],
+    },
+    Fixer: {
+        primaryStats: ["INT", "COOL", "EMP"],
+        secondaryStats: ["DEX", "LUCK"],
+        preferredSkills: ["Conceal/Reveal Object", "Lip Reading", "Perception", "Resist Torture/Drugs", "Stealth", "Evasion", "Acting", "Handgun", "Bribery", "Conversation", "Human Perception", "Interrogation", "Persuasion", "Streetwise", "Basic Tech", "Forgery", "Pick Lock", "Pick Pocket", "Business", "Gamble", "Trading", "Bureaucracy", "Accounting", "Library Search"],
+    },
+    Nomad: {
+        primaryStats: ["DEX","COOL", "WILL"],
+        secondaryStats: ["REF", "BODY", "TECH"],
+        preferredSkills: ["Perception", "Tracking", "Athletics", "Endurance", "Drive Land Vehicle", "Pilot Air Vehicle (x2)", "Pilot Sea Vehicle (x2)", "Riding", "Brawling", "Evasion", "Melee Weapon", "Play Instrument", "Archery", "Handgun", "Shoulder Arms", "Streetwise", "Trading", "Air Vehicle Tech", "Land Vehicle Tech", "Sea Vehicle Tech", "Basic Tech", "Demolitions (x2)", "Animal Handling", "Wilderness Survival" ],
+    },
+    // Add more roles as needed
+};

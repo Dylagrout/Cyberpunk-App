@@ -1,9 +1,17 @@
 
 // Add event listener for generate character button
 document.getElementById('generate-character').addEventListener('click', () => {
+    currentCharacter = {};
     const role = roles[Math.floor(Math.random() * roles.length)];
+    currentCharacter.role = role;
+    const age = Math.floor(Math.random() * 30) + 21;
+    const randomSex = sex[Math.floor(Math.random() * sex.length)];
+    const randomGender = gender[Math.floor(Math.random() * gender.length)];
+    const randomSexuality = sexuality[Math.floor(Math.random() * sexuality.length)];
     const randomOrigin = culturalOrigins[Math.floor(Math.random() * culturalOrigins.length)];
     const randomLanguage = randomOrigin.languages[Math.floor(Math.random() * randomOrigin.languages.length)];
+    const randomEnvironment = environment[Math.floor(Math.random() * environment.length)];
+    const randomNeighborhood = randomEnvironment.neighborhoods[Math.floor(Math.random() * randomEnvironment.neighborhoods.length)];
     const randomPersonality = personalities[Math.floor(Math.random() * personalities.length)];
     const randomClothingStyle = clothingStyles[Math.floor(Math.random() * clothingStyles.length)];
     const randomHairstyle = hairstyles[Math.floor(Math.random() * hairstyles.length)];
@@ -15,13 +23,30 @@ document.getElementById('generate-character').addEventListener('click', () => {
     const randomGoal = lifeGoal[Math.floor(Math.random() * lifeGoal.length)];
     const randomFamilyBackground = familyBackground[Math.floor(Math.random() * familyBackground.length)];
     const { friends, enemies, lovers } = rollFriendsAndEnemiesAndLovers();
-
-
+    if (!rolePreferences[role]) {
+        console.error(`Role '${role}' is not defined in rolePreferences.`);
+        return;
+    }
+    const stats = generateStats(rolePreferences); // Use role preferences
+    const skills = generateSkills(rolePreferences, randomLanguage, randomNeighborhood);
+    const derivedStats = calculateDerivedStats(stats);
+    console.log(role)
+    console.log(stats);
+    console.log(skills);
+    console.log(rolePreferences[role]);
     currentCharacter = {
         role,
+        age,
+        randomSex,
+        randomGender,
+        randomSexuality,
         culturalOrigin: {
             region: randomOrigin.region,
             language: randomLanguage,
+        },
+        childhood: {
+            environment: randomEnvironment.description,
+            neighborhood: randomNeighborhood,
         },
         randomPersonality,
         randomClothingStyle,
@@ -38,7 +63,10 @@ document.getElementById('generate-character').addEventListener('click', () => {
         },
         friends,
         enemies,
-        lovers
+        lovers,
+        stats,
+        skills,
+        derivedStats
     };
 
     // Display the generated character
@@ -76,7 +104,12 @@ function generateRoleSpecificInfo(role) {
 function displayCharacter(character) {
     const {
         role,
+        age,
+        randomSex,
+        randomGender,
+        randomSexuality,
         culturalOrigin,
+        childhood,
         randomPersonality,
         randomClothingStyle,
         randomHairstyle,
@@ -89,7 +122,10 @@ function displayCharacter(character) {
         familyBackground,
         friends,
         enemies,
-        lovers
+        lovers,
+        stats,
+        skills,
+        derivedStats
     } = character;
 
     const displayDiv = document.getElementById('character-display');
@@ -100,6 +136,10 @@ function displayCharacter(character) {
             <div class="left-column">
                 <h2>Character Name</h2>
                 <p><strong>Role:</strong> ${role}</p>
+                <p><strong>Age:</strong> ${age}</p>
+                <p><strong>Sex:</strong> ${randomSex}</p>
+                <p><strong>Gender:</strong> ${randomGender}</p>
+                <p><strong>Sexuality:</strong> ${randomSexuality}</p>
                 <h2>Character Info</h2>
                 <div>
                     <h3>Cultural Origin</h3>
@@ -125,6 +165,7 @@ function displayCharacter(character) {
                 <h3>Family Background</h3>
                 <p><strong>Background:</strong> ${familyBackground.background}</p>
                 <p><strong>Description:</strong> ${familyBackground.description}</p>
+                <p><strong>Childhood Environment:</strong> ${childhood.environment}</p>
                 <br>
             </div>
             <div class="right-column">
@@ -152,6 +193,53 @@ function displayCharacter(character) {
             ${generateRoleSpecificInfo(role)}
             </div>
         </div>
+        <div class="stats-section">
+            <h3>STATs</h3>
+            <div class="stat-boxes">
+                ${Object.entries(stats).map(([stat, value]) => `
+                    <div class="stat-box ${rolePreferences[role].primaryStats.includes(stat) ? 'primary' : ''} ${rolePreferences[role].secondaryStats.includes(stat) ? 'secondary' : ''}">
+                        <strong>${stat}</strong>
+                        <p>${value}</p>
+                    </div>
+                `).join('')}
+            </div>
+
+            <!-- Derived Stats Section -->
+            <div class="derived-stats-box">
+                <h4>Derived Stats</h4>
+                <div class="derived-stats">
+                    <div><strong>Humanity:</strong> ${derivedStats.humanity}</div>
+                    <div><strong>Hit Points (HP):</strong> ${derivedStats.hp}</div>
+                    <div><strong>Seriously Wounded Threshold:</strong> ${derivedStats.seriouslyWounded}</div>
+                    <div><strong>Death Save Threshold:</strong> ${derivedStats.deathSave}</div>
+                </div>
+            </div>
+        </div>
+
+<div class="skills-section">
+    <h3>Skills</h3>
+    ${Object.entries(stats)
+        .filter(([stat]) => skillsByStat.hasOwnProperty(stat)) // Only include stats that exist in skillsByStat
+        .map(([stat, value]) => `
+            <div class="skill-group">
+                <h4>${stat}: ${value}</h4>
+                <div class="skill-items">
+                    ${Object.keys(skills)
+                        .filter(skill =>
+                            skillsByStat[stat].includes(skill) || // Ensure stat is valid before checking
+                            (stat === "INT" && (skill.startsWith("Language") || skill.startsWith("Local Expert")))
+                        )
+                        .map(skill => `
+                            <div class="skill-item ${rolePreferences[currentCharacter.role]?.preferredSkills?.includes(skill) ? 'preferred' : ''}">
+                                <strong>${skill}:</strong> ${skills[skill]} 
+                                <em>(Total: ${value + skills[skill]})</em>
+                            </div>
+                        `).join('')}
+                </div>
+            </div>
+        `).join('')}
+</div>
+
         <button id="save-character">Save Character</button>
     `;
 
