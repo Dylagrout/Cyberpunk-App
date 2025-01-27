@@ -30,6 +30,7 @@ document.getElementById('generate-character').addEventListener('click', () => {
     const stats = generateStats(rolePreferences); // Use role preferences
     const skills = generateSkills(rolePreferences, randomLanguage, randomNeighborhood);
     const derivedStats = calculateDerivedStats(stats);
+    const weapons = generateWeapons();
     console.log(role)
     console.log(stats);
     console.log(skills);
@@ -66,7 +67,8 @@ document.getElementById('generate-character').addEventListener('click', () => {
         lovers,
         stats,
         skills,
-        derivedStats
+        derivedStats,
+        weapons
     };
 
     // Display the generated character
@@ -125,7 +127,8 @@ function displayCharacter(character) {
         lovers,
         stats,
         skills,
-        derivedStats
+        derivedStats,
+        weapons
     } = character;
 
     const displayDiv = document.getElementById('character-display');
@@ -239,7 +242,13 @@ function displayCharacter(character) {
             </div>
         `).join('')}
 </div>
-
+<!-- Weapons Section -->
+    <div class="weapons-section">
+        <h3>Weapons</h3>
+        <ul>
+            ${weapons.map(weapon => `<li>${weapon}</li>`).join('')}
+        </ul>
+    </div>
         <button id="save-character">Save Character</button>
     `;
 

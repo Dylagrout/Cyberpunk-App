@@ -229,3 +229,47 @@ const rolePreferences = {
     },
     // Add more roles as needed
 };
+const weapons = {
+    Ranged: {
+        SMG: ["Glock 17", "Colt 1911", "Desert Eagle"],
+        HeavySMG: ["MP5", "Uzi", "Vector"],
+        MediumPistol: ["Glock 17", "Colt 1911", "Desert Eagle"],
+        HeavyPistol: ["Glock 17", "Colt 1911", "Desert Eagle"],
+        VeryHeavyPistol: ["Glock 17", "Colt 1911", "Desert Eagle"],
+        Shotgun: ["SPAS-12", "Mossberg 590", "Remington 870"],
+        AssaultRifle: ["AK-47", "M4A1", "FAMAS"],
+        Sniper: ["Barrett .50 Cal", "AWP", "Dragunov"],
+        BowsCrossbows: ["Barrett .50 Cal", "AWP", "Dragunov"],
+        GrenadeLauncher: ["Barrett .50 Cal", "AWP", "Dragunov"],
+        RocketLauncher: ["Barrett .50 Cal", "AWP", "Dragunov"],
+    },
+    Melee: {
+        Light: ["Combat Knife", "Broken Bottle", "Dive Knife", "Tomahawk", "Stickball Stick"],
+        Medium: ["Baseball Bat", "Crowbar", "Machete", "Stun Baton"],
+        Heavy: ["Chain", "Lead Pipe", "Sword", "Spiked Bat"],
+        VeryHeavy: ["Chainsaw", "Naginata", "Sledge Hammer", "Helicopter Blade"],
+    },
+    Exotic: [
+        "Air Pistol", "Battleglove", "Constitutional Arms Hurricane Assault Weapon", "Dartgun", "Flamethrower", "Kendachi Mono-Three", "Malorian Arms 3516", "Microwaver", "Militech 'Cowboy' U-56 Grenade Launcher", "Rhinemetall EMG-86 Railgun", "Shrieker", "Stun Baton", "Stun Gun", "Tsunami Arms Helix", 
+    ],
+};
+const weaponQualities = [
+    { quality: "Poor", costMultiplier: 0.5, brands: ["BudgetArms", "Kendachi"] },
+    { quality: "Standard", costMultiplier: 1, brands: ["Militech", "Arasaka"] },
+    { quality: "Excellent", costMultiplier: 2, brands: ["Dai Lung", "Malorian"] },
+    { quality: "Expensive", costMultiplier: 5, brands: ["Kang Tao", "Soros"] },
+    { quality: "Very Expensive", costMultiplier: 10, brands: ["H&K", "Tsunami Arms"] }
+];
+
+const weaponBaseCosts = {
+    "Light Melee": 20,
+    "Medium Melee": 50,
+    "Heavy Melee": 100,
+    "Very Heavy Melee": 500,
+    "Pistol": 50,
+    "SMG": 100,
+    "Shotgun": 500,
+    "Assault Rifle": 1000,
+    "Sniper Rifle": 1000,
+    "Exotic": 5000 // Exotic weapons are generally much more expensive
+};
