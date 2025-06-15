@@ -22,6 +22,7 @@ document.getElementById('generate-character').addEventListener('click', () => {
     const randomPosession = possession[Math.floor(Math.random() * possession.length)];
     const randomGoal = lifeGoal[Math.floor(Math.random() * lifeGoal.length)];
     const randomFamilyBackground = familyBackground[Math.floor(Math.random() * familyBackground.length)];
+    const randomFamilyCrisis = familyCrisis[Math.floor(Math.random() * familyCrisis.length)];
     const { friends, enemies, lovers } = rollFriendsAndEnemiesAndLovers();
     if (!rolePreferences[role]) {
         console.error(`Role '${role}' is not defined in rolePreferences.`);
@@ -62,6 +63,7 @@ document.getElementById('generate-character').addEventListener('click', () => {
             background: randomFamilyBackground.background,
             description: randomFamilyBackground.description
         },
+        randomFamilyCrisis,
         friends,
         enemies,
         lovers,
@@ -122,6 +124,7 @@ function displayCharacter(character) {
         randomPosession,
         randomGoal,
         familyBackground,
+        randomFamilyCrisis,
         friends,
         enemies,
         lovers,
@@ -169,6 +172,7 @@ function displayCharacter(character) {
                 <p><strong>Background:</strong> ${familyBackground.background}</p>
                 <p><strong>Description:</strong> ${familyBackground.description}</p>
                 <p><strong>Childhood Environment:</strong> ${childhood.environment}</p>
+                <p><strong>Family Crisis:</strong> ${randomFamilyCrisis}</p>
                 <br>
             </div>
             <div class="right-column">
@@ -244,11 +248,16 @@ function displayCharacter(character) {
 </div>
 <!-- Weapons Section -->
     <div class="weapons-section">
-        <h3>Weapons</h3>
-        <ul>
-            ${weapons.map(weapon => `<li>${weapon}</li>`).join('')}
-        </ul>
-    </div>
+    <h3>Weapons</h3>
+    <ul>
+        ${weapons.map(weapon => `
+            <li>
+                <strong>${weapon.quality} Quality ${weapon.brand} ${weapon.name}</strong> 
+                (${weapon.type}) - ${weapon.priceTier} ($${weapon.price})
+            </li>
+        `).join('')}
+    </ul>
+</div>
         <button id="save-character">Save Character</button>
     `;
 

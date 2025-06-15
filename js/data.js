@@ -1,5 +1,5 @@
 const roles = ['Solo', 'Netrunner', 'Medtech', 'Rockerboy', 'Lawman', 'Executive', 'Tech', 'Media', 'Fixer', 'Nomad'];
-const sex = ['Male', 'Female', 'Both'];
+const sex = ['Male', 'Female'];
 const gender = ['Cis', 'Transgender', 'Non-Binary'];
 const sexuality = ['Heterosexual', 'Homosexual', 'Bisexual', 'Pansexual', 'Asexual']
 const culturalOrigins = [
@@ -9,7 +9,7 @@ const culturalOrigins = [
     { region: "Eastern Europe", languages: ["English", "Finnish", "Russian", "Polish", "Romanian", "Ukrainian"] },
     { region: "Middle Eastern/North African", languages: ["English", "Arabic", "Turkish", "Farsi", "Hebrew", "French", "Berber"] },
     { region: "Sub-Saharan African", languages: ["English", "Swahili", "French", "Arabic", "Hausa", "Lingala", "Oromo", "Portuguese", "Twi", "Yoruba"] },
-    { region: "South Asian", languages: ["English", "Bengali", "Dari", ,"Hindi", "Nepali", "Urdu", "Tamil", "Sinhalese"] },
+    { region: "South Asian", languages: ["English", "Bengali", "Dari", "Hindi", "Nepali", "Urdu", "Tamil", "Sinhalese"] },
     { region: "South East Asian", languages: ["English", "Arabic", "Burmese", "Filipino", "Hindi", "Indonesian", "Khmer", "Malayan", "Vietnamese"] },
     { region: "East Asian", languages: ["English", "Cantonese Chinese", "Japanese", "Korean", "Mandarin Chinese", "Mongolian"] },
     { region: "Oceania/Pacific Islander", languages: ["English", "French", "Hawaiian", "Pama-Nyungan", "Tahitian", "Maori"] },
@@ -123,6 +123,7 @@ const fixerLifepath = {
     workspace: ["You don't have one. You like to keep it mobile.", "A booth in a local bar.", "All Data Pool messages and anonymous dead drops.", "Spare room in a warehouse. shop, or clinic.", "An otherwise abandoned building.", "The lobby of a cube hotel." ],
     sideClients: ["Local Rockerboys and Media who use you to get them gigs or contacts.", "Local gangers who also protect your work area or home.", "Corporate Execs who use you for 'black project' procurement work.", "Local Solos or other combat types who use you to get them jobs or contacts.", "Local Nomads and Fixers who use you to set up transactions or deals.", "Local politicos or Execs who depend on you for finding out information."],
     fixerEnemy: ["Combat Zone gangers who want you to work for them exclusively.", "Rival Fixers trying to steal your clients.", "Execs who want you to work for them exclusively.", "Enemy of a former client who wants to clean up 'loose ends'--like you.", "Old client who thinks you screwed them over.", "Rival Fixer trying to beat you out for resources and parts."],
+    operationZone:["Badlands", "Upper Marina", "University District", "Downtown", "Little Europe", "Hot Zone", "Pacifica", "Rancho Coronado", "Heywood", "Santo Domingo", "Little China", "Old Japantown", "Old Combat Zone", "South Night City", "New Westbrook", "Watson", "Kabuki", "The Glen"]
 }
 const nomadLifepath = {
     packSize: ["A single extended tribe or family", "A couple dozen members", "Forty or fifty members", "A hundred or more members", "A Blood Family (hundreds of members)", "An Affiliated Family (made of several Blood Families)"],
@@ -231,17 +232,17 @@ const rolePreferences = {
 };
 const weapons = {
     Ranged: {
-        SMG: ["Glock 17", "Colt 1911", "Desert Eagle"],
-        HeavySMG: ["MP5", "Uzi", "Vector"],
-        MediumPistol: ["Glock 17", "Colt 1911", "Desert Eagle"],
-        HeavyPistol: ["Glock 17", "Colt 1911", "Desert Eagle"],
-        VeryHeavyPistol: ["Glock 17", "Colt 1911", "Desert Eagle"],
-        Shotgun: ["SPAS-12", "Mossberg 590", "Remington 870"],
-        AssaultRifle: ["AK-47", "M4A1", "FAMAS"],
-        Sniper: ["Barrett .50 Cal", "AWP", "Dragunov"],
-        BowsCrossbows: ["Barrett .50 Cal", "AWP", "Dragunov"],
-        GrenadeLauncher: ["Barrett .50 Cal", "AWP", "Dragunov"],
-        RocketLauncher: ["Barrett .50 Cal", "AWP", "Dragunov"],
+        SMG: ["SMG"],
+        HeavySMG: ["Heavy SMG"],
+        MediumPistol: ["Medium Pistol"],
+        HeavyPistol: ["Heavy Pistol"],
+        VeryHeavyPistol: ["Very Heavy Pistol"],
+        Shotgun: ["Shotgun"],
+        AssaultRifle: ["Assault Rifle"],
+        Sniper: ["Sniper"],
+        BowsCrossbows: ["Bow", "Crossbow"],
+        GrenadeLauncher: ["Grenade Launcher"],
+        RocketLauncher: ["Rocket Launcher"],
     },
     Melee: {
         Light: ["Combat Knife", "Broken Bottle", "Dive Knife", "Tomahawk", "Stickball Stick"],
@@ -253,23 +254,19 @@ const weapons = {
         "Air Pistol", "Battleglove", "Constitutional Arms Hurricane Assault Weapon", "Dartgun", "Flamethrower", "Kendachi Mono-Three", "Malorian Arms 3516", "Microwaver", "Militech 'Cowboy' U-56 Grenade Launcher", "Rhinemetall EMG-86 Railgun", "Shrieker", "Stun Baton", "Stun Gun", "Tsunami Arms Helix", 
     ],
 };
-const weaponQualities = [
-    { quality: "Poor", costMultiplier: 0.5, brands: ["BudgetArms", "Kendachi"] },
-    { quality: "Standard", costMultiplier: 1, brands: ["Militech", "Arasaka"] },
-    { quality: "Excellent", costMultiplier: 2, brands: ["Dai Lung", "Malorian"] },
-    { quality: "Expensive", costMultiplier: 5, brands: ["Kang Tao", "Soros"] },
-    { quality: "Very Expensive", costMultiplier: 10, brands: ["H&K", "Tsunami Arms"] }
-];
+const manufacturers = {
+    BudgetArms: { quality: ["Poor"], types: ["Pistol", "SMG"] },
+};
+const weaponQualities = {
+    Poor: ["Everyday", "Costly", "Premium"],
+    Standard: ["Costly", "Premium", "Expensive"],
+    Excellent: ["Premium", "Expensive", "Very Expensive"]
+};
 
-const weaponBaseCosts = {
-    "Light Melee": 20,
-    "Medium Melee": 50,
-    "Heavy Melee": 100,
-    "Very Heavy Melee": 500,
-    "Pistol": 50,
-    "SMG": 100,
-    "Shotgun": 500,
-    "Assault Rifle": 1000,
-    "Sniper Rifle": 1000,
-    "Exotic": 5000 // Exotic weapons are generally much more expensive
+const priceValues = {
+    Everyday: 20,
+    Costly: 50,
+    Premium: 100,
+    Expensive: 500,
+    VeryExpensive: 1000
 };

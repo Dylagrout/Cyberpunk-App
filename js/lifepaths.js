@@ -172,6 +172,7 @@ function generateFixerPath() {
     const workspace = fixerLifepath.workspace[Math.floor(Math.random() * fixerLifepath.workspace.length)];
     const sideClients = fixerLifepath.sideClients[Math.floor(Math.random() * fixerLifepath.sideClients.length)];
     const fixerEnemy = fixerLifepath.fixerEnemy[Math.floor(Math.random() * fixerLifepath.fixerEnemy.length)];
+    const operationZone = fixerLifepath.operationZone[Math.floor(Math.random() * fixerLifepath.operationZone.length)];
     return `
         <p><strong>Fixer Type:</strong> ${typeRoll}</p>
         <p><strong>Work Alone or Got a Partner?:</strong> ${aloneOrPartner}</p>
@@ -179,6 +180,7 @@ function generateFixerPath() {
         <p><strong>What's Your "Office" Like?:</strong> ${workspace}</p>
         <p><strong>Side Clients?:</strong> ${sideClients}</p>
         <p><strong>Who's Gunning for You?:</strong> ${fixerEnemy}</p>
+        <p><strong>Where Do You Operate?:</strong> ${operationZone}</p>
     `;
 }
 function generateNomadPath() {
