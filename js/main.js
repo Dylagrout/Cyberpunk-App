@@ -4,9 +4,8 @@ document.getElementById('generate-character').addEventListener('click', () => {
     currentCharacter = {};
     const role = roles[Math.floor(Math.random() * roles.length)];
     currentCharacter.role = role;
-    const age = Math.floor(Math.random() * 30) + 21;
+    const age = Math.floor(Math.random() * 50) + 21;
     const randomSex = sex[Math.floor(Math.random() * sex.length)];
-    const randomGender = gender[Math.floor(Math.random() * gender.length)];
     const randomSexuality = sexuality[Math.floor(Math.random() * sexuality.length)];
     const randomOrigin = culturalOrigins[Math.floor(Math.random() * culturalOrigins.length)];
     const randomLanguage = randomOrigin.languages[Math.floor(Math.random() * randomOrigin.languages.length)];
@@ -40,7 +39,6 @@ document.getElementById('generate-character').addEventListener('click', () => {
         role,
         age,
         randomSex,
-        randomGender,
         randomSexuality,
         culturalOrigin: {
             region: randomOrigin.region,
@@ -110,7 +108,6 @@ function displayCharacter(character) {
         role,
         age,
         randomSex,
-        randomGender,
         randomSexuality,
         culturalOrigin,
         childhood,
@@ -144,7 +141,6 @@ function displayCharacter(character) {
                 <p><strong>Role:</strong> ${role}</p>
                 <p><strong>Age:</strong> ${age}</p>
                 <p><strong>Sex:</strong> ${randomSex}</p>
-                <p><strong>Gender:</strong> ${randomGender}</p>
                 <p><strong>Sexuality:</strong> ${randomSexuality}</p>
                 <h2>Character Info</h2>
                 <div>
@@ -178,7 +174,12 @@ function displayCharacter(character) {
             <div class="right-column">
                 <h3>Friends</h3>
                 <ul>
-                    ${friends.map(friend => `<li>${friend.type}</li>`).join('')}
+                    ${friends.map(friend => `
+                        <li>
+                            <strong>Type:</strong> ${friend.type} <br>
+                            <strong>How did you meet?:</strong> ${friend.story}
+                        </li>
+                    `).join('')}
                 </ul>
                 <h3>Enemies</h3>
                 <ul>
@@ -277,7 +278,8 @@ function rollFriendsAndEnemiesAndLovers() {
     const friends = [];
     for (let i = 0; i < numberOfFriends; i++) {
         const type = friendType[Math.floor(Math.random() * friendType.length)];
-        friends.push({ type });
+        const story = friendStory[Math.floor(Math.random() * friendStory.length)];
+        friends.push({ type, story });
     }
 
     const enemies = [];

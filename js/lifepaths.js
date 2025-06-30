@@ -20,12 +20,14 @@ function generateRockerboyPath() {
             additionalInfo = `<p><strong>Was Once in a Group:</strong> No</p>`;
         }
     }
+    const biggestFan = rockerboyLifepath.biggestFan[Math.floor(Math.random() * rockerboyLifepath.biggestFan.length)];
     const performanceLocation = rockerboyLifepath.performanceLocation[Math.floor(Math.random() * rockerboyLifepath.performanceLocation.length)];
     const rockerboyEnemy = rockerboyLifepath.rockerboyEnemy[Math.floor(Math.random() * rockerboyLifepath.rockerboyEnemy.length)];
     // Return the full role path details
     return `
         <p><strong>Rockerboy Type:</strong> ${typeRoll}</p>
         <p><strong>Solo or Group:</strong> ${soloOrGroupRoll}</p>
+        <p><strong>Who is your Biggest Fan?:</strong> ${biggestFan}</p>
         <p><strong>Where Do You Perform?</strong> ${performanceLocation}</p>
         <p><strong>Who's Gunning for You?</strong> ${rockerboyEnemy}</p>
         ${additionalInfo}
@@ -36,12 +38,14 @@ function generateSoloPath() {
     const moralCompass = soloLifepath.moralCompass[Math.floor(Math.random() * soloLifepath.moralCompass.length)];
     const operationalTerritory = soloLifepath.operationalTerritory[Math.floor(Math.random() * soloLifepath.operationalTerritory.length)];
     const soloEnemy = soloLifepath.soloEnemy[Math.floor(Math.random() * soloLifepath.soloEnemy.length)];
+    const memorableGig = soloLifepath.memorableGig[Math.floor(Math.random() * soloLifepath.memorableGig.length)];
 
     return `
         <p><strong>Solo Type:</strong> ${typeRoll}</p>
         <p><strong>Moral Compass:</strong> ${moralCompass}</p>
         <p><strong>Where Do You Operate?</strong> ${operationalTerritory}</p>
         <p><strong>Who's Gunning for You?</strong> ${soloEnemy}</p>
+        <p><strong>Memorable Gig:</strong> ${memorableGig}</p>
     `;
 }
 
@@ -58,6 +62,7 @@ function generateNetrunnerPath() {
     const otherClients = netrunnerLifepath.otherClients[Math.floor(Math.random() * netrunnerLifepath.otherClients.length)];
     const programLocation = netrunnerLifepath.programLocation[Math.floor(Math.random() * netrunnerLifepath.programLocation.length)];
     const netrunnerEnemy = netrunnerLifepath.netrunnerEnemy[Math.floor(Math.random() * netrunnerLifepath.netrunnerEnemy.length)];
+    const mostInterestingDiscovery = netrunnerLifepath.mostInterestingDiscovery[Math.floor(Math.random() * netrunnerLifepath.mostInterestingDiscovery.length)];
     // Return the full role path details
     return `
         <p><strong>Netrunner Type:</strong> ${typeRoll}</p>
@@ -67,6 +72,7 @@ function generateNetrunnerPath() {
         <p><strong>Other Clients?:</strong> ${otherClients}</p>
         <p><strong>Where Do You Get Your Programs?:</strong> ${programLocation}</p>
         <p><strong>Who's Gunning for You?:</strong> ${netrunnerEnemy}</p>
+        <p><strong>Most Interesting Discovery?:</strong> ${mostInterestingDiscovery}</p>
     `;
 }
 
@@ -83,6 +89,7 @@ function generateTechPath() {
     const mainClients = techLifepath.mainClients[Math.floor(Math.random() * techLifepath.mainClients.length)];
     const supplyLocation = techLifepath.supplyLocation[Math.floor(Math.random() * techLifepath.supplyLocation.length)];
     const techEnemy = techLifepath.techEnemy[Math.floor(Math.random() * techLifepath.techEnemy.length)];
+    const bizEntryTech = techLifepath.bizEntryTech[Math.floor(Math.random() * techLifepath.bizEntryTech.length)];
     // Return the full role path details
     return `
         <p><strong>Tech Type:</strong> ${typeRoll}</p>
@@ -92,6 +99,7 @@ function generateTechPath() {
         <p><strong>Main Clients?:</strong> ${mainClients}</p>
         <p><strong>Where Do You Get Your Supplies?:</strong> ${supplyLocation}</p>
         <p><strong>Who's Gunning for You?:</strong> ${techEnemy}</p>
+        <p><strong>How did you get into the Biz?:</strong> ${bizEntryTech}</p>
     `;
 }
 
@@ -107,6 +115,7 @@ function generateMedtechPath() {
     const workspace = medtechLifepath.workspace[Math.floor(Math.random() * medtechLifepath.workspace.length)];
     const mainClients = medtechLifepath.mainClients[Math.floor(Math.random() * medtechLifepath.mainClients.length)];
     const supplyLocation = medtechLifepath.supplyLocation[Math.floor(Math.random() * medtechLifepath.supplyLocation.length)];
+    const memorablePatient = medtechLifepath.memorablePatient[Math.floor(Math.random() * medtechLifepath.memorablePatient.length)];
     return `
         <p><strong>Medtech Type:</strong> ${typeRoll}</p>
         <p><strong>Work Alone or Got a Partner?:</strong> ${aloneOrPartner}</p>
@@ -114,6 +123,7 @@ function generateMedtechPath() {
         <p><strong>What's Your Workspace Like?:</strong> ${workspace}</p>
         <p><strong>Main Clients?:</strong> ${mainClients}</p>
         <p><strong>Where Do You Get Your Supplies?:</strong> ${supplyLocation}</p>
+        <p><strong>Who is your most Memorable Patient?:</strong> ${memorablePatient}</p>
     `;
 }
 function generateMediaPath() {
@@ -121,12 +131,14 @@ function generateMediaPath() {
     const workReach = mediaLifepath.workReach[Math.floor(Math.random() * mediaLifepath.workReach.length)];
     const ethical = mediaLifepath.ethical[Math.floor(Math.random() * mediaLifepath.ethical.length)];
     const storyType = mediaLifepath.storyType[Math.floor(Math.random() * mediaLifepath.storyType.length)];
+    const popularStory = mediaLifepath.popularStory[Math.floor(Math.random() * mediaLifepath.popularStory.length)];
 
     return `
         <p><strong>Media Type:</strong> ${typeRoll}</p>
         <p><strong>How Does Your Work Reach the Public?:</strong> ${workReach}</p>
         <p><strong>How Ethical are You?:</strong> ${ethical}</p>
         <p><strong>Story Type:</strong> ${storyType}</p>
+        <p><strong>What's Your Most Popular Story?:</strong> ${popularStory}</p>
     `;
 }
 function generateExecutivePath() {
@@ -136,6 +148,7 @@ function generateExecutivePath() {
     const corpLocation = executiveLifepath.corpLocation[Math.floor(Math.random() * executiveLifepath.corpLocation.length)];
     const corpEnemy = executiveLifepath.corpEnemy[Math.floor(Math.random() * executiveLifepath.corpEnemy.length)];
     const bossState = executiveLifepath.bossState[Math.floor(Math.random() * executiveLifepath.bossState.length)];
+    const colleagueKnown = executiveLifepath.colleagueKnown[Math.floor(Math.random() * executiveLifepath.colleagueKnown.length)];
 
     return `
         <p><strong>Executive Type:</strong> ${typeRoll}</p>
@@ -144,6 +157,7 @@ function generateExecutivePath() {
         <p><strong>Where is Your Corp Based?:</strong> ${corpLocation}</p>
         <p><strong>Who's Gunning for Your Group?:</strong> ${corpEnemy}</p>
         <p><strong>Current State with Your Boss:</strong> ${bossState}</p>
+        <p><strong>What do your colleagues Know you for?:</strong> ${colleagueKnown}</p>
     `;
 }
 function generateLawmanPath() {
@@ -152,12 +166,14 @@ function generateLawmanPath() {
     const ethical = lawmanLifepath.ethical[Math.floor(Math.random() * lawmanLifepath.ethical.length)];
     const lawmanEnemy = lawmanLifepath.lawmanEnemy[Math.floor(Math.random() * lawmanLifepath.lawmanEnemy.length)];
     const lawmanTarget = lawmanLifepath.lawmanTarget[Math.floor(Math.random() * lawmanLifepath.lawmanTarget.length)];
+    const memorableCase = lawmanLifepath.memorableCase[Math.floor(Math.random() * lawmanLifepath.memorableCase.length)];
     return `
         <p><strong>Lawman Position:</strong> ${typeRoll}</p>
         <p><strong>Group Jurisdiction:</strong> ${jurisdiction}</p>
         <p><strong>How Corrupt is Your Group?:</strong> ${ethical}</p>
         <p><strong>Who's Gunning for Your Group?:</strong> ${lawmanEnemy}</p>
         <p><strong>Group's Major Target:</strong> ${lawmanTarget}</p>
+        <p><strong>What is your most Memorable Case?:</strong> ${memorableCase}</p>
     `;
 }
 function generateFixerPath() {
@@ -173,6 +189,7 @@ function generateFixerPath() {
     const sideClients = fixerLifepath.sideClients[Math.floor(Math.random() * fixerLifepath.sideClients.length)];
     const fixerEnemy = fixerLifepath.fixerEnemy[Math.floor(Math.random() * fixerLifepath.fixerEnemy.length)];
     const operationZone = fixerLifepath.operationZone[Math.floor(Math.random() * fixerLifepath.operationZone.length)];
+    const streetsKnown = fixerLifepath.streetsKnown[Math.floor(Math.random() * fixerLifepath.streetsKnown.length)];
     return `
         <p><strong>Fixer Type:</strong> ${typeRoll}</p>
         <p><strong>Work Alone or Got a Partner?:</strong> ${aloneOrPartner}</p>
@@ -181,6 +198,7 @@ function generateFixerPath() {
         <p><strong>Side Clients?:</strong> ${sideClients}</p>
         <p><strong>Who's Gunning for You?:</strong> ${fixerEnemy}</p>
         <p><strong>Where Do You Operate?:</strong> ${operationZone}</p>
+        <p><strong>What do the Streets know you for?:</strong> ${streetsKnown}</p>
     `;
 }
 function generateNomadPath() {
