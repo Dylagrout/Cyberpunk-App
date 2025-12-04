@@ -40,17 +40,7 @@ function generateWeapons() {
 
         // Step 2: Pick a quality for the weapon
         const quality = Object.keys(weaponQualities)[Math.floor(Math.random() * Object.keys(weaponQualities).length)];
-
-        // Step 3: Filter manufacturers based on weapon type and quality
-        const validManufacturers = Object.entries(manufacturers).filter(
-            ([_, details]) => details.quality.includes(quality) && details.types.includes(weaponType)
-        );
-
-        // Pick a random manufacturer from the valid pool
-        const manufacturer = validManufacturers.length > 0
-            ? validManufacturers[Math.floor(Math.random() * validManufacturers.length)][0]
-            : "Unknown Manufacturer"; // Fallback if no valid manufacturer is found
-
+    
         // Step 4: Determine price based on quality
         const priceTier = weaponQualities[quality][Math.floor(Math.random() * weaponQualities[quality].length)];
         const price = priceValues[priceTier];
@@ -60,7 +50,6 @@ function generateWeapons() {
             name: weaponName,
             type: weaponType,
             quality,
-            brand: manufacturer,
             priceTier,
             price
         });

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Night City - Game Mode</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/game.js" defer></script>
+    <script src="js/gigs.js" defer></script>
+</head>
+<body class="game-screen">
+
+    <!-- Map Display -->
+    <div id="map-container">
+        <div id="map-wrapper">
+            <img id="map-image" src="images/night-city-map.jpg" alt="Night City Map" />
+            <div class="poi" data-name="Camden Court" style="top: 4064px; left: 2371px;"></div>
+            <div class="poi" data-name="Chopper's" style="top: 4521px; left: 2490px;"></div>
+            <div class="poi" data-name="Continental Brands Vertical Neighborhood" style="top: 4426px; left: 2301px;"></div>
+            <div class="poi" data-name="Cube-A-Rama" style="top: 4344px; left: 550px;"></div>
+            <div class="poi" data-name="Danger Gal Housing Facility" style="top: 4205px; left: 1964px;"></div>
+            <div class="poi" data-name="Danger Gal Offices" style="top: 4246px; left: 2011px;"></div>
+            <div class="poi" data-name="Fiddler's Green" style="top: 4182px; left: 2333px;"></div>
+            <div class="poi" data-name="Greta's" style="top: 4206px; left: 2795px;"></div>
+            <div class="poi" data-name="Holy Angels Church" style="top: 4200px; left: 2181px;"></div>
+            <div class="poi" data-name="Paradiso Terrestre" style="top: 4478px; left: 2350px;"></div>
+            <div class="poi" data-name="Short Circuit" style="top: 4511px; left: 2652px;"></div>
+            <div class="poi" data-name="Soprano's" style="top: 4670px; left: 2306px;"></div>
+            <div class="poi" data-name="Torrell and Chiang's" style="top: 4740px; left: 2390px;"></div>
+        </div>
+    </div>
+    <div id="location-wrapper" class="hidden">
+        <img id="location-image" src="" alt="Location" class="location-image" />
+        <div id="location-description" class="location-description"></div>
+    </div>
+    <!-- Sidebar for Actions -->
+    <div class="sidebar">
+        <h3>Actions</h3>
+        <button class="action-btn" onclick="explore()">Explore</button>
+        <button class="action-btn" onclick="wait()">Wait</button>
+        <button class="action-btn" onclick="shop()">Shop</button>
+        <button class="action-btn hidden" id="rent-btn" onclick="rentRoom()">Rent</button>
+        <button class="action-btn hidden" id="leave-btn" onclick="leaveLocation()">Leave</button>
+        <button class="action-btn hidden" id="start-gig-btn">Start Gig</button>
+    </div>
+
+    <!-- HUD at Bottom -->
+    <div class="hud" id="hud">
+        <button id="toggle-character">View Character</button>
+    </div>
+    <div id="character-panel" class="hidden">
+        <h2>Character Skills</h2>
+        <div id="skill-details"></div>
+    </div>
+    <div id="gig-panel" class="hidden">
+        <h2 id="gig-name"></h2>
+        <p id="gig-desc"></p>
+        <p><strong>Reward:</strong> <span id="gig-reward"></span>eb</p>
+        <button id="gig-stealth">Stealth</button>
+        <button id="gig-combat">Combat</button>
+        <button id="gig-cancel">Cancel</button>
+    </div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Trebuchet MS';
     margin: 0;
     padding: 0;
     background-color: #1c1c1c;
@@ -135,3 +135,153 @@ button {
     border: 2px solid #2196F3; /* Highlight preferred Skills */
     background-color: #000000;
 }
+.game-screen {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#map-container {
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+#map-container:active {
+    cursor: grabbing;
+}
+#map-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+}
+#map-image {
+   position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: top left;
+    transition: transform 0.05s ease-out;
+    user-select: none;
+    pointer-events: none;
+}
+
+#city-map {
+    width: 100%;
+    height: auto;
+    transform-origin: center center;
+    transition: transform 0.3s ease;
+}
+
+.sidebar {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: rgba(20, 20, 20, 0.85);
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    z-index: 2;
+}
+
+.sidebar h3 {
+    margin-top: 0;
+}
+
+.action-btn {
+    display: block;
+    margin: 5px 0;
+    width: 100%;
+}
+
+#hud {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(25, 25, 25, 0.9);
+    color: #f0f0f0;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    font-family: monospace;
+    z-index: 1000;
+    border-top: 2px solid #888;
+}
+
+.hud-left,
+.hud-center,
+.hud-right {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.zoom-controls {
+    position: absolute;
+    bottom: 80px;
+    right: 10px;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 5px;
+    border-radius: 5px;
+}
+.zoom-controls button {
+    margin: 2px;
+    display: block;
+}
+#character-panel {
+    position: absolute;
+    bottom: 60px;
+    left: 20px;
+    background-color: rgba(0,0,0,0.9);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-height: 60vh;
+    overflow-y: auto;
+    z-index: 10;
+}
+.hidden {
+    display: none;
+}
+.poi {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 0, 0, 0.5); /* Optional: for visibility */
+    border: 2px solid #ff0000;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 10;
+}
+.location-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border: 2px solid #888;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.location-description {
+    background-color: #111;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+#gig-panel {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.9);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 20;
+}
+.hidden { display: none; }
+#gig-panel button { margin: 5px; }
+

@@ -14,6 +14,7 @@ document.getElementById('generate-character').addEventListener('click', () => {
     const randomPersonality = personalities[Math.floor(Math.random() * personalities.length)];
     const randomClothingStyle = clothingStyles[Math.floor(Math.random() * clothingStyles.length)];
     const randomHairstyle = hairstyles[Math.floor(Math.random() * hairstyles.length)];
+    const randomHairColor = hairColors[Math.floor(Math.random() * hairColors.length)];
     const randomAffectation = affectation[Math.floor(Math.random() * affectation.length)];
     const randomValuedIdea = valuedIdea[Math.floor(Math.random() * valuedIdea.length)];
     const randomFeeling = feeling[Math.floor(Math.random() * feeling.length)];
@@ -30,7 +31,11 @@ document.getElementById('generate-character').addEventListener('click', () => {
     const stats = generateStats(rolePreferences); // Use role preferences
     const skills = generateSkills(rolePreferences, randomLanguage, randomNeighborhood);
     const derivedStats = calculateDerivedStats(stats);
-    const weapons = generateWeapons();
+    const characterWeapons = [
+    { name: "Medium Pistol", type: "Ranged", damage: "2d6", quality: "Poor" },
+    { name: "Light Melee Weapon", type: "Melee", damage: "2d6", quality: "Poor" }
+    ];
+    const startingMoney = 500;
     console.log(role)
     console.log(stats);
     console.log(skills);
@@ -51,6 +56,7 @@ document.getElementById('generate-character').addEventListener('click', () => {
         randomPersonality,
         randomClothingStyle,
         randomHairstyle,
+        randomHairColor,
         randomAffectation,
         randomValuedIdea,
         randomFeeling,
@@ -68,11 +74,20 @@ document.getElementById('generate-character').addEventListener('click', () => {
         stats,
         skills,
         derivedStats,
-        weapons
+        characterWeapons
     };
 
     // Display the generated character
     displayCharacter(currentCharacter);
+    localStorage.setItem("currentCharacter", JSON.stringify(currentCharacter));
+    localStorage.setItem("characterStats", JSON.stringify(stats));
+    localStorage.setItem("characterSkills", JSON.stringify(skills));
+    localStorage.setItem("characterWeapons", JSON.stringify(characterWeapons));
+    localStorage.setItem("characterMoney", startingMoney);
+});
+
+document.getElementById("start-game").addEventListener("click", () => {
+    window.location.href = "game.html";
 });
 function rollDice() {
     return Math.floor(Math.random() * 10) + 1; // Rolls a 1d10
@@ -114,6 +129,7 @@ function displayCharacter(character) {
         randomPersonality,
         randomClothingStyle,
         randomHairstyle,
+        randomHairColor,
         randomAffectation,
         randomValuedIdea,
         randomFeeling,
@@ -128,7 +144,7 @@ function displayCharacter(character) {
         stats,
         skills,
         derivedStats,
-        weapons
+        characterWeapons
     } = character;
 
     const displayDiv = document.getElementById('character-display');
@@ -152,6 +168,7 @@ function displayCharacter(character) {
                     <p><strong>Personality:</strong> ${randomPersonality}</p>
                     <p><strong>Clothing Style:</strong> ${randomClothingStyle}</p>
                     <p><strong>Hairstyle:</strong> ${randomHairstyle}</p>
+                    <p><strong>Hair Color:</strong> ${randomHairColor}</p>
                     <p><strong>Affectation:</strong> ${randomAffectation}</p>
                 </div>
             </div>
@@ -251,10 +268,9 @@ function displayCharacter(character) {
     <div class="weapons-section">
     <h3>Weapons</h3>
     <ul>
-        ${weapons.map(weapon => `
+        ${characterWeapons.map(weapon => `
             <li>
-                <strong>${weapon.quality} Quality ${weapon.brand} ${weapon.name}</strong> 
-                (${weapon.type}) - ${weapon.priceTier} ($${weapon.price})
+                <strong>${weapon.quality} Quality ${weapon.name}</strong> 
             </li>
         `).join('')}
     </ul>
