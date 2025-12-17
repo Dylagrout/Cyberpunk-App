@@ -4,11 +4,13 @@ document.getElementById('generate-character').addEventListener('click', () => {
     currentCharacter = {};
     const role = roles[Math.floor(Math.random() * roles.length)];
     currentCharacter.role = role;
-    const age = Math.floor(Math.random() * 50) + 21;
+    const age = Math.floor(Math.random() * 40) + 18;
     const randomSex = sex[Math.floor(Math.random() * sex.length)];
     const randomSexuality = sexuality[Math.floor(Math.random() * sexuality.length)];
     const randomOrigin = culturalOrigins[Math.floor(Math.random() * culturalOrigins.length)];
     const randomLanguage = randomOrigin.languages[Math.floor(Math.random() * randomOrigin.languages.length)];
+    const generatedName = generateName(randomLanguage, randomSex);
+    const generatedHandle = generateHandle();
     const randomEnvironment = environment[Math.floor(Math.random() * environment.length)];
     const randomNeighborhood = randomEnvironment.neighborhoods[Math.floor(Math.random() * randomEnvironment.neighborhoods.length)];
     const randomPersonality = personalities[Math.floor(Math.random() * personalities.length)];
@@ -29,8 +31,22 @@ document.getElementById('generate-character').addEventListener('click', () => {
         return;
     }
     const stats = generateStats(rolePreferences); // Use role preferences
-    const skills = generateSkills(rolePreferences, randomLanguage, randomNeighborhood);
-    const derivedStats = calculateDerivedStats(stats);
+    currentCharacter.stats = stats;
+    const skills = generateSkills(rolePreferences, randomLanguage, randomNeighborhood, stats);
+    const cyberware = generateCyberwareFromCatalog(cyberwareCatalog, stats.EMP);
+    stats.EMP = cyberware.emp.current;
+    // Apply cyberware stat modifiers
+const finalStats = { ...stats };
+for (const [stat, delta] of Object.entries(cyberware.modifiers.stats || {})) {
+  finalStats[stat] = (finalStats[stat] || 0) + delta;
+}
+
+// Apply cyberware skill modifiers
+const finalSkills = { ...skills };
+for (const [skill, delta] of Object.entries(cyberware.modifiers.skills || {})) {
+  finalSkills[skill] = (finalSkills[skill] || 0) + delta;
+}
+    const derivedStats = calculateDerivedStats(finalStats, cyberware.humanity.current);
     const characterWeapons = [
     { name: "Medium Pistol", type: "Ranged", damage: "2d6", quality: "Poor" },
     { name: "Light Melee Weapon", type: "Melee", damage: "2d6", quality: "Poor" }
@@ -45,6 +61,11 @@ document.getElementById('generate-character').addEventListener('click', () => {
         age,
         randomSex,
         randomSexuality,
+        name: {
+        first: generatedName.first,
+        last: generatedName.last,
+        handle: generatedHandle
+        },
         culturalOrigin: {
             region: randomOrigin.region,
             language: randomLanguage,
@@ -71,8 +92,12 @@ document.getElementById('generate-character').addEventListener('click', () => {
         friends,
         enemies,
         lovers,
-        stats,
+        stats: finalStats,
+        baseStats: stats,        // keep originals if you want to display “before cyberware”
+        skills: finalSkills,
+        baseSkills: skills,
         skills,
+        cyberware,
         derivedStats,
         characterWeapons
     };
@@ -89,6 +114,27 @@ document.getElementById('generate-character').addEventListener('click', () => {
 document.getElementById("start-game").addEventListener("click", () => {
     window.location.href = "game.html";
 });
+function pickRandom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function generateHandle() {
+  return pickRandom(handles);
+}
+
+function generateName(language, sex) {
+  // Fallback language if we don't have that language configured
+  const langBlock = namesByLanguage[language] || namesByLanguage["English"];
+
+  // Fallback sex safety (in case of unexpected value)
+  const firstList = (langBlock.first && langBlock.first[sex]) || langBlock.first["Male"];
+
+  return {
+    first: pickRandom(firstList),
+    last: pickRandom(langBlock.last),
+  };
+}
+
 function rollDice() {
     return Math.floor(Math.random() * 10) + 1; // Rolls a 1d10
 }
@@ -124,6 +170,7 @@ function displayCharacter(character) {
         age,
         randomSex,
         randomSexuality,
+        name,
         culturalOrigin,
         childhood,
         randomPersonality,
@@ -143,17 +190,20 @@ function displayCharacter(character) {
         lovers,
         stats,
         skills,
+        cyberware,
         derivedStats,
         characterWeapons
     } = character;
-
+    const counts = cyberware.installCounts || {};
+    const uniqueNames = Object.keys(counts);
     const displayDiv = document.getElementById('character-display');
 
     displayDiv.innerHTML = `
         <div class="character-container">
             <!-- Left Column -->
             <div class="left-column">
-                <h2>Character Name</h2>
+                <h2>${name.first} ${name.last}</h2>
+                <p><strong>Handle:</strong> ${name.handle}</p>
                 <p><strong>Role:</strong> ${role}</p>
                 <p><strong>Age:</strong> ${age}</p>
                 <p><strong>Sex:</strong> ${randomSex}</p>
@@ -265,7 +315,7 @@ function displayCharacter(character) {
         `).join('')}
 </div>
 <!-- Weapons Section -->
-    <div class="weapons-section">
+<div class="weapons-section">
     <h3>Weapons</h3>
     <ul>
         ${characterWeapons.map(weapon => `
@@ -275,6 +325,30 @@ function displayCharacter(character) {
         `).join('')}
     </ul>
 </div>
+<div class="cyberware-section">
+  <h3>Cyberware</h3>
+  <div class="derived-stats-box">
+    <h4>Humanity & EMP</h4>
+    <div class="derived-stats">
+      <div><strong>Humanity:</strong> ${cyberware.humanity.current} (Lost ${cyberware.humanity.lost})</div>
+      <div><strong>EMP:</strong> ${cyberware.emp.current} (Start ${cyberware.emp.start}, Threshold ${cyberware.emp.threshold})</div>
+    </div>
+  </div>
+
+  ${
+    cyberware.installed.length === 0
+      ? `<p>No cyberware installed.</p>`
+      : `
+        <ul>
+          ${uniqueNames.map(name => {
+    const count = counts[name];
+    return `<li><strong>${name}</strong>${count > 1 ? ` x${count}` : ""}</li>`;
+  }).join("")}
+        </ul>
+      `
+  }
+</div>
+
         <button id="save-character">Save Character</button>
     `;
 

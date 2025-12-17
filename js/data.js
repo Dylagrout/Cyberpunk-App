@@ -1,3 +1,101 @@
+const handles = [
+  "Ghostwire", "Redline", "NeonVex", "ChromeKid", "Ash", "Frostbyte",
+  "Shiv", "Koi", "Blackjack", "Wraith", "Icarus", "Hollowpoint",
+  "Nightjar", "Static", "Glass", "Switch", "Kismet", "Gutterangel"
+];
+
+// -------------------- NAMES BY LANGUAGE + SEX --------------------
+// Keys MUST match exactly what you generate in randomLanguage.
+// Example: culturalOrigins includes "Japanese", so we use "Japanese".
+const namesByLanguage = {
+  "English": {
+    first: {
+      Male: ["James", "Michael", "William", "Robert", "John", "David", "Joseph", "Charles", "Thomas", "Daniel", "Matthew", "Anthony", "Mark", "Paul", "Steven", "Andrew", "Joshua", "Kevin", "Brian", "George", "Edward", "Ronald", "Timothy", "Jason", "Jeffrey", "Ryan", "Jacob", "Nicholas", "Eric", "Jonathan"],
+      Female: ["Emily", "Sarah", "Jessica", "Ashley", "Amanda", "Elizabeth", "Megan", "Lauren", "Rachel", "Hannah", "Brittany", "Samantha", "Nicole", "Kayla", "Victoria", "Allison", "Stephanie", "Rebecca", "Jennifer", "Danielle", "Amber", "Melissa", "Courtney", "Alyssa", "Katherine", "Alexis", "Madison", "Natalie", "Olivia", "Hailey"]
+    },
+    last: ["Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson", "Martinez", "Anderson", "Taylor", "Thomas", "Hernandez", "Moore", "Martin", "Jackson", "Thompson", "White", "Lopez", "Lee", "Gonzalez", "Harris", "Clark", "Lewis", "Robinson", "Walker", "Perez", "Hall"]
+  },
+  "Cree": {
+    first: {
+      Male: ["Maskwa", "Miskwa", "Wâpam", "Pimâci", "Kisêyiniw", "Wîsakêcâhk", "Atim", "Mahihkan", "Sîpî", "Nîpiy", "Paskwâw", "Kâwâci", "Sâkâw", "Pîsim", "Kîsikâw", "Môswa", "Wâpos", "Kâh-kîsikâw", "Nâpêw", "Pîhtokahanapiw", "Sakimay", "Mîkiwâhp", "Kîwêtin", "Sîsîp", "Pîhcî", "Mîkwan", "Niska", "Wâwâskêsiw", "Pîsimwâw", "Kâ-nîpiy"],
+      Female: ["Ayasha", "Niska", "Miyo", "Kisiskâciwan", "Wâpan", "Pîsim", "Sakari", "Wîsahkêcâhkwe", "Nîpiy", "Kîwêtin", "Sîpî", "Awasis", "Maskwawe", "Kisikâw", "Pîtâw", "Sôniyâ", "Wâsahkwe", "Mistikwe", "Kâwîsî", "Nôkôm", "Wîhkâc", "Sâkihitowin", "Nimâma", "Paskwâwi", "Wâpikoni", "Kâminâ", "Pîhon", "Sîsîp", "Wîpacîs", "Miyopîcik"]
+    },
+    last: ["Cardinal", "Starblanket", "Thunderchild", "Ahenakew", "Okimaw", "Wapass", "Kinew", "Noskiye", "Cuthand", "Tootoosis", "Beardy", "Arcand", "Iron", "Littlebear", "Stonechild", "Sunchild", "Fox", "Wolf", "Eagle", "Bear", "Buffalo", "Sky", "Head", "Fiddler", "Minde", "Spence", "Sinclair", "Runningwolf", "Whitecalf", "Swiftwind"]
+  },
+  "Creole": {
+    first: {
+      Male: ["Jean-Baptiste", "Étienne", "Marcelin", "Lucien", "Alphonse", "René", "Clément", "Thierry", "Pascal", "Dominique", "Benoît", "Sylvain", "Florent", "Gérard", "Hervé", "Mathurin", "Prosper", "Célestin", "Isidore", "Olivier", "Frantz", "Wilfrid", "Jacques", "Philémon", "Emmanuel", "Anselme", "Serge", "Nicolas", "Raoul", "Maximin"],
+      Female: ["Aveline", "Celestine", "Delphine", "Élodie", "Félicité", "Geneviève", "Hortense", "Isabeau", "Joséphine", "Léontine", "Marceline", "Nadège", "Odette", "Philomène", "Rosalie", "Séraphine", "Solange", "Théodora", "Valérie", "Yvette", "Zéphirine", "Clémence", "Eulalie", "Florine", "Laurentine", "Noéline", "Pascaline", "Réverie", "Sylvanie", "Victoire"]
+    },
+    last: ["Fontenot", "Thibodeaux", "Boudreaux", "Landry", "Guidry", "Hebert", "Arceneaux", "Bourgeois", "Breaux", "Trahan", "Comeaux", "Richard", "LeBlanc", "Duplantier", "Deveraux", "Marceaux", "Rochon", "Delacroix", "Pellerin", "Savoy", "Villeré", "Moreau", "Batiste", "Charbonnet", "Cloutier", "Deshotel", "Fuselier", "Gauthier", "Montclair", "Rosette"]
+  },
+  "French": {
+    first: {
+      Male: ["Adrien", "Baptiste", "Camille", "Cédric", "Clément", "Damien", "Étienne", "Florian", "Gabriel", "Hugo", "Ismaël", "Julien", "Laurent", "Mathieu", "Maxime", "Nicolas", "Olivier", "Pascal", "Quentin", "Raphaël", "Romain", "Sébastien", "Théo", "Tristan", "Valentin", "Victor", "Vincent", "Yann", "Alexandre", "Benoît"],
+      Female: ["Élise", "Camille", "Sophie", "Claire", "Juliette", "Amélie", "Madeleine", "Lucie", "Chloé", "Margaux", "Élodie", "Anaïs", "Céline", "Manon", "Pauline", "Adèle", "Léa", "Béatrice", "Noémie", "Hélène", "Mathilde", "Valérie", "Sabine", "Isabelle", "Florence", "Geneviève", "Colette", "Agnès", "Joséphine", "Renée"]
+    },
+    last: ["Dubois", "Moreau", "Lefèvre", "Girard", "Laurent", "Martin", "Bernard", "Rousseau", "Petit", "Durand", "Lemoine", "Fontaine", "Blanchard", "Gauthier", "Chevalier", "Perrin", "Marchand", "Boucher", "Renard", "Caron", "Deschamps", "Benoît", "Chapelier", "Fournier", "Vidal", "Picard", "Leroux", "Delacroix", "Montagne", "Beaumont"]
+  },
+  "Spanish": {
+    first: {
+      Male: ["Carlos", "Javier", "Miguel", "Alejandro", "Diego", "Fernando", "Ricardo", "Manuel", "José", "Antonio", "Francisco", "Pedro", "Luis", "Rafael", "Sergio", "Andrés", "Pablo", "Raúl", "Iván", "Óscar", "Héctor", "Alberto", "Emilio", "Gonzalo", "Ignacio", "Marcos", "Adrián", "Víctor", "Álvaro", "Mateo"],
+      Female: ["Ana", "María", "Lucía", "Carmen", "Isabel", "Sofía", "Elena", "Patricia", "Laura", "Paula", "Marta", "Clara", "Rosa", "Teresa", "Pilar", "Beatriz", "Inés", "Natalia", "Raquel", "Silvia", "Verónica", "Irene", "Alicia", "Nerea", "Alba", "Daniela", "Noelia", "Cristina", "Adriana", "Eva"]
+    },
+    last: ["Begay", "Yazzie", "Nez", "Tsosie", "Benally", "Ashkii", "Hosteen", "Chee", "Bitsui", "Todacheene", "Klah", "Diné", "Hatathli", "Kinlichee", "Nakai", "Tabaaha", "Hastiin", "Ayze", "Joe", "Henry", "Curley", "Jasper", "Blackhorse", "Whitehorse", "Redhouse", "Blueeyes", "Manygoats", "Yellowhair", "Long", "Shorty"]
+  },
+  "German": {
+    first: {
+      Male: ["Johann", "Friedrich", "Wilhelm", "Heinrich", "Karl", "Otto", "Ludwig", "Matthias", "Sebastian", "Andreas", "Gregor", "Konrad", "Albrecht", "Rudolf", "Ernst", "Hans", "Dieter", "Klaus", "Manfred", "Bernd", "Ulrich", "Volker", "Jürgen", "Reinhard", "Wolfgang", "Hermann", "Günther", "Siegfried", "Armin", "Eckhart"],
+      Female: ["Anna", "Lena", "Sophie", "Marie", "Hannah", "Laura", "Lea", "Mia", "Emilia", "Johanna", "Katharina", "Charlotte", "Luisa", "Paula", "Clara", "Frieda", "Greta", "Helena", "Elisa", "Theresa", "Magdalena", "Amelie", "Franziska", "Ida", "Wilhelmine", "Mathilda", "Anneliese", "Rosalie", "Elke", "Sabine"]
+    },
+    last: ["Schneider", "Müller", "Weber", "Fischer", "Becker", "Hoffmann", "Koch", "Bauer", "Richter", "Klein", "Wolf", "Schröder", "Neumann", "Schwarz", "Zimmermann", "Braun", "Krüger", "Hartmann", "Lange", "Schmitt", "Werner", "Vogel", "Peters", "Maier", "Lehmann", "Krause", "Brandt", "Keller", "Walter", "Hahn"]
+  },
+  "Italian": {
+    first: {
+      Male: ["Alessandro", "Marco", "Giovanni", "Luca", "Matteo", "Francesco", "Antonio", "Lorenzo", "Davide", "Stefano", "Riccardo", "Paolo", "Simone", "Federico", "Andrea", "Nicola", "Gabriele", "Filippo", "Roberto", "Massimo", "Enrico", "Carlo", "Pietro", "Salvatore", "Vincenzo", "Giorgio", "Claudio", "Alberto", "Bruno", "Tommaso"],
+      Female: ["Giulia", "Francesca", "Sofia", "Martina", "Chiara", "Alessandra", "Elena", "Valentina", "Beatrice", "Lucia", "Camilla", "Giorgia", "Federica", "Serena", "Arianna", "Isabella", "Claudia", "Silvia", "Paola", "Roberta", "Ilaria", "Monica", "Laura", "Caterina", "Rachele", "Maddalena", "Bianca", "Carlotta", "Noemi", "Veronica"]
+    },
+    last: ["Rossi", "Bianchi", "Romano", "Esposito", "Ricci", "Marino", "Greco", "Conti", "De Luca", "Mancini", "Costa", "Giordano", "Rizzo", "Lombardi", "Moretti", "Barbieri", "Santoro", "Ferrari", "Gallo", "Caruso", "Colombo", "Fontana", "Serra", "D'Angelo", "Villa", "Fabbri", "Testa", "Coppola", "Pellegrini", "Bernardi"]
+  },
+  "Navajo": {
+    first: {
+      Male: ["Ashkii", "Hastiin", "Hashké", "Yazzie", "Begay", "Nez", "Shíyázh", "Bíighah", "Dibé", "Tóhji", "Náátsʼíilid", "Chʼil", "Kéyah", "Shash", "Łizhin", "Táchiiʼnii", "Naalnish", "Hózhǫ́ǫ́", "Chahałheeł", "Tsé", "Dahʼíí", "Nahatʼá", "Shiłbééh", "Nílchʼi", "Hastiinín", "Bááhózhǫ́", "Tóshjí", "Shiłgai", "Tłʼízí", "Kʼaaʼ"],
+      Female: ["Áłtsé Hastiin", "Ashkii Yazhi", "At’ééd", "Asdzą́ą́", "Ayóó Áłchíní", "Chilchin", "Dibé Yazhi", "Hózhǫ́ǫ́ní", "K’é", "Nizhóní", "Nahasdzáán", "Sáanii", "Shíyázhí", "Tłʼízí", "Tsé Níjíkiní", "Yázhí", "Atsá", "Bitsííʼ", "Dólii", "Haʼaʼaah", "Íiyisíí", "Kinaaʼ", "Łikan", "Naʼashǫ́ʼíí", "Sǫ́ʼah", "Tábąąh", "Tóshjeeh", "Yiską́", "Zahní", "Hastiin Nizhóní"]
+    },
+    last: ["Begay", "Yazzie", "Nez", "Tsosie", "Benally", "Ashkii", "Hosteen", "Chee", "Bitsui", "Todacheene", "Klah", "Diné", "Hatathli", "Kinlichee", "Nakai", "Tabaaha", "Hastiin", "Ayze", "Joe", "Henry", "Curley", "Jasper", "Blackhorse", "Whitehorse", "Redhouse", "Blueeyes", "Manygoats", "Yellowhair", "Long", "Shorty"]
+  },
+  "Japanese": {
+    first: {
+      Male: ["Hiro", "Ren", "Kaito", "Daichi", "Ryo", "Takumi"],
+      Female: ["Aiko", "Yui", "Hana", "Reina", "Sora", "Mika"]
+    },
+    last: ["Sato", "Takahashi", "Tanaka", "Watanabe", "Ito", "Kobayashi"]
+  },
+
+  "Korean": {
+    first: {
+      Male: ["Minjun", "Jiho", "Seojun", "Taeyang", "Hyunwoo"],
+      Female: ["Jisoo", "Soyeon", "Minseo", "Haeun", "Yuna"]
+    },
+    last: ["Kim", "Lee", "Park", "Choi", "Jung"]
+  },
+  "Cantonese Chinese": {
+    first: {
+      Male: ["Wei", "Jun", "Ming", "Hao", "Chen", "Liang", "Feng", "Tao", "Lei", "Peng", "Jian", "Bo", "Qiang", "Yong", "Rui", "Zhi", "Xuan", "Kun", "Bin", "Dong", "Shuo", "Yu", "Han", "Yi", "Ze", "Chao", "Guang", "Lin", "An", "Kai"],
+      Female: ["Mei", "Ling", "Xia", "Yue", "Lan", "Hua", "Jing", "Qing", "Rui", "Na", "Fang", "Lian", "Xue", "Yan", "Ting", "Yi", "Shan", "Min", "Fei", "Wei", "Zhen", "Ai", "Ning", "Yun", "Su", "Lei", "Ping", "Cui", "Xuan", "Chen"]
+    },
+    last: ["Li", "Wang", "Zhang", "Liu", "Chen", "Yang", "Zhao", "Huang", "Zhou", "Wu", "Xu", "Sun", "Ma", "Zhu", "Hu", "Guo", "He", "Gao", "Lin", "Luo", "Zheng", "Liang", "Xie", "Song", "Tang", "Han", "Feng", "Yu", "Dong", "Xiao"]
+  },
+  "Mandarin Chinese": {
+    first: {
+      Male: ["Wei", "Jun", "Ming", "Hao", "Chen", "Liang", "Feng", "Tao", "Lei", "Peng", "Jian", "Bo", "Qiang", "Yong", "Rui", "Zhi", "Xuan", "Kun", "Bin", "Dong", "Shuo", "Yu", "Han", "Yi", "Ze", "Chao", "Guang", "Lin", "An", "Kai"],
+      Female: ["Mei", "Ling", "Xia", "Yue", "Lan", "Hua", "Jing", "Qing", "Rui", "Na", "Fang", "Lian", "Xue", "Yan", "Ting", "Yi", "Shan", "Min", "Fei", "Wei", "Zhen", "Ai", "Ning", "Yun", "Su", "Lei", "Ping", "Cui", "Xuan", "Chen"]
+    },
+    last: ["Li", "Wang", "Zhang", "Liu", "Chen", "Yang", "Zhao", "Huang", "Zhou", "Wu", "Xu", "Sun", "Ma", "Zhu", "Hu", "Guo", "He", "Gao", "Lin", "Luo", "Zheng", "Liang", "Xie", "Song", "Tang", "Han", "Feng", "Yu", "Dong", "Xiao"]
+  },
+
+  // Add more languages as you like...
+};
 const roles = ['Solo', 'Netrunner', 'Medtech', 'Rockerboy', 'Lawman', 'Executive', 'Tech', 'Media', 'Fixer', 'Nomad'];
 const sex = ['Male', 'Female'];
 const sexuality = ['Heterosexual', 'Homosexual', 'Bisexual', 'Pansexual', 'Asexual']
@@ -14,7 +112,7 @@ const culturalOrigins = [
     { region: "Oceania/Pacific Islander", languages: ["English", "French", "Hawaiian", "Pama-Nyungan", "Tahitian", "Maori"] },
 ];
 const personalities = ['Shy', 'Secretive', 'Rebellious', 'Antisocial', 'Violent', 'Arrogant', 'Proud', 'Aloof', 'Moody', 'Rash', 'Frivolous', 'Fussy', 'Nervous', 'Stable', 'Serious', 'Silly', 'Fluff-headed', 'Detached', 'Friendly', 'Outgoing', 'Mysterious', 'Blabbermouth', 'Nosy', 'Compassionate', 'Idealistic', 'Perfectionist', 'Apathetic', 'Fatalistic', 'Subtle', 'Cunning', 'Hedonistic', 'Gracious', 'Self-Critical', 'Tidy', 'Adaptable', 'Professional', 'Ambitious', 'Ruthless'];
-const hairstyles = ['Mohawk', 'Long and ratty', 'Short and spiked', 'Wild and all over', 'Bald', 'Striped', 'Wild colors', 'Neat and short', 'Short and curly', 'Long and straight', 'Short sides long top', 'Chin length and thick', 'Slicked back', 'Mullet', 'Messy coils', 'Tightly Braided', 'Military Cut', 'Multicolored', 'Asymmetrical'];
+const hairstyles = ['Mohawk', 'Long and ratty', 'Short and spiked', 'Wild and all over', 'Bald', 'Striped', 'Neat and short', 'Short and curly', 'Long and straight', 'Short sides long top', 'Chin length and thick', 'Slicked back', 'Mullet', 'Messy coils', 'Tightly Braided', 'Military Cut', 'Multicolored', 'Asymmetrical'];
 const hairColors = ['Blonde', 'Brunette', 'Red', 'Black', 'Grey', 'Salt & Pepper', 'Blue', 'Pink', 'Green', 'Purple', 'White', 'Orange', 'Gold'];
 const clothingStyles = ['Generic Chic (Standard, Colorful, Modular)', 'Leisurewear (Comfort, Agility, Athleticism)', 'Urban Flash (Flashy, Technological, Streetwear)', 'Businesswear (Leadership, Presence, Authority)', 'High Fashion (Exclusive, Designer, Couture)', 'Bohemian (Folksy, Retro, Free-spirited)', 'Bag Lady Chic (Homeless, Ragged, Vagrant)', 'Gang Colors (Dangerous, Violent, Rebellious)', 'Nomad Leathers (Western, Rugged, Tribal)', 'Asia Pop (Bright, Costume-like, Youthful)', 'Cyber Grunge (Neon, Individualistic, Defiant)', 'Crypto Core (Weird, Practical, Academic)', 'VSCO (Relaxed, Soft, Pastel)', 'Y2K (Eccentric, Playful, 00s)', 'Retro Chic (Old-School Cool, Traditional, Distinguished)', 'Glam Witch (Dark, Occult, Spiritual)', 'Corpo Punk (Understated, Enticing, Edgy)', 'Mall Goth (Spiky, Provocative, Accessorised)', 'Military Chic (Tactical, Camo, Intimidating)'];
 const affectation = ['Tattoos', 'Mirrorshades', 'Ritual scars', 'Spiked gloves', 'Nose rings', 'Tongue or other piercings', 'Strange fingernail implants', 'Spiked boots or heels', 'Fingerless gloves', 'Strange contacts', 'Jacket covered in sewn on patches', 'Personlized Lighter', 'Particular shade of lipstick', 'A favorite hat', 'Large retro headphones', 'Excessive jewellery', 'Stylish bag/backpack', 'Decorated/personalized airhypo', 'Cool retro hip flask/water bottle', 'Distinct belt buckle'];
@@ -338,7 +436,150 @@ const weaponQualities = {
     Standard: ["Costly", "Premium", "Expensive"],
     Excellent: ["Premium", "Expensive", "Very Expensive"]
 };
+const cyberwareCatalog = [
+  // --- Foundational / “everyone has it” stuff ---
+  { name: "Neural Link", rarity: "Common", type: "Neuralware", humanityLoss: "2d6", slots: 5 },
+  { name: "Cyberaudio Suite", rarity: "Common", type: "Cyberaudio", humanityLoss: "2d6", slots: 3 },
+  { name: "Cybereye", rarity: "Common", type: "Cyberoptics", humanityLoss: "2d6", slots: 3, stackable: true, maxStacks: 2 },
+  { name: "Cyberarm", rarity: "Uncommon", type: "Cyberlimb", humanityLoss: "2d6", slots: 4, stackable: true, maxStacks: 2},
+  { name: "Cyberleg", rarity: "Uncommon", type: "Cyberlimb", humanityLoss: "1d6", slots: 4, stackable: true, maxStacks: 2},
 
+  // --- Fashionware / “everyone has it” stuff ---
+  { name: "Biomonitor", rarity: "Common", type: "Fashionware", humanityLoss: "0"},
+  { name: "Chemskin", rarity: "Common", type: "Fashionware", humanityLoss: "0", effects: [
+      {
+        kind: "skill",
+        skill: "Personal Grooming",
+        amount: 2,
+        // Conditional: only if Chemskin installed
+        ifInstalled: ["Techhair"]
+      }
+    ]},
+  { name: "EMP Threading", rarity: "Common", type: "Fashionware", humanityLoss: "0"},
+  { name: "Light Tattoo", rarity: "Common", type: "Fashionware", humanityLoss: "0", stackable: true,          // allow duplicates
+    effects: [
+      {
+        kind: "skill",
+        skill: "Wardrobe & Style",
+        amount: 2,
+        // Conditional: only if at least 3 Light Tattoos installed
+        ifCountAtLeast: { name: "Light Tattoo", count: 3 }
+      }
+    ]},
+  { name: "Shift Tacts", rarity: "Common", type: "Fashionware", humanityLoss: "0"},
+  { name: "Skinwatch", rarity: "Common", type: "Fashionware", humanityLoss: "0"},
+  { name: "Techhair", rarity: "Common", type: "Fashionware", humanityLoss: "0", effects: [
+      {
+        kind: "skill",
+        skill: "Personal Grooming",
+        amount: 2,
+        // Conditional: only if Chemskin installed
+        ifInstalled: ["Chemskin"]
+      }
+    ]},
+
+
+
+  // --- Neuralware addons ---
+  { name: "Braindance Recorder", rarity: "Uncommon", type: "Neuralware", humanityLoss: "2d6", requires: [{ name: "Neural Link", requiresSlots: 1 }] },
+  { name: "Chipware Socket", rarity: "Common", type: "Neuralware", humanityLoss: "2d6", slots: 1, stackable: true, requires: [{ name: "Neural Link", requiresSlots: 1 }] },
+  { name: "Interface Plugs", rarity: "Common", type: "Neuralware", humanityLoss: "2d6", requires: [{ name: "Neural Link", requiresSlots: 1 }] },
+  { name: "Chemical Analyzer", rarity: "Uncommon", type: "Neuralware", humanityLoss: "1d6", requires: [{ name: "Chipware Socket", requiresSlots: 1 }] },
+  { name: "Memory Chip", rarity: "Common", type: "Neuralware", humanityLoss: "0" },
+  { name: "Olfactory Boost", rarity: "Uncommon", type: "Neuralware", humanityLoss: "2d6", requires: [{ name: "Chipware Socket", requiresSlots: 1 }] },
+  { name: "Pain Editor", rarity: "Rare", type: "Neuralware", humanityLoss: "4d6", requires: [{ name: "Chipware Socket", requiresSlots: 1 }] },
+  { name: "Skill Chip", rarity: "Uncommon", type: "Neuralware", humanityLoss: "2d6", requires: [{ name: "Chipware Socket", requiresSlots: 1 }] },
+  { name: "Tactile Boost", rarity: "Uncommon", type: "Neuralware", humanityLoss: "2d6", requires: [{ name: "Chipware Socket", requiresSlots: 1 }] },
+  { name: "Kerenzikov", rarity: "Rare", type: "Neuralware", humanityLoss: "4d6", requires: [{ name: "Neural Link", requiresSlots: 1 }] },
+  { name: "Sandevistan", rarity: "Rare", type: "Neuralware", humanityLoss: "2d6", requires: [{ name: "Neural Link", requiresSlots: 1 }] },
+
+  // --- Cyberoptics addons ---
+  { name: "Anti-Dazzle", rarity: "Uncommon", type: "Cyberoptics Option", humanityLoss: "1d6/2", requires: [{ name: "Cybereye", requiresSlots: 1 }] },
+  { name: "Chyron", rarity: "Uncommon", type: "Cyberoptics Option", humanityLoss: "1d6/2", requires: [{ name: "Cybereye", requiresSlots: 1 }] },
+  { name: "Color Shift", rarity: "Uncommon", type: "Cyberoptics Option", humanityLoss: "1d6/2", requires: [{ name: "Cybereye", requiresSlots: 1 }] },
+  { name: "Dartgun", rarity: "Rare", type: "Cyberoptics Option", humanityLoss: "1d6/2", requires: [{ name: "Cybereye", requiresSlots: 3 }] },
+  { name: "Image Enhance", rarity: "Uncommon", type: "Cyberoptics Option", humanityLoss: "1d6", requires: [{ name: "Cybereye", requiresSlots: 1 }] },
+  { name: "Low Light / IR / UV", rarity: "Uncommon", type: "Cyberoptics Option", humanityLoss: "1d6", requires: [{ name: "Cybereye", requiresSlots: 2 }] },
+  { name: "MircroOptics", rarity: "Uncommon", type: "Cyberoptics Option", humanityLoss: "1d6/2", requires: [{ name: "Cybereye", requiresSlots: 1 }] },
+  { name: "MircroVideo", rarity: "Uncommon", type: "Cyberoptics Option", humanityLoss: "1d6/2", requires: [{ name: "Cybereye", requiresSlots: 2 }] },
+  { name: "Radiation Detector", rarity: "Rare", type: "Cyberoptics Option", humanityLoss: "1d6", requires: [{ name: "Cybereye", requiresSlots: 1 }] },
+  { name: "Targeting Scope", rarity: "Uncommon", type: "Cyberoptics Option", humanityLoss: "1d6", requires: [{ name: "Cybereye", requiresSlots: 1 }] },
+  { name: "TeleOptics", rarity: "Uncommon", type: "Cyberoptics Option", humanityLoss: "1d6", requires: [{ name: "Cybereye", requiresSlots: 1 }] },
+  { name: "Virtuality", rarity: "Uncommon", type: "Cyberoptics Option", humanityLoss: "1d6/2", requires: [{ name: "Cybereye", requiresSlots: 1 }] },
+
+  // --- Cyberarm addons ---
+  { name: "Cyberhand", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "1d6/2", stackable: true, maxStacks: 2},
+  { name: "Big Knucks", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "1d6" },
+  { name: "Cyberdeck", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "1d6", requires: [{ name: "Cyberarm", requiresSlots: 3 }] },
+  { name: "Grapple Hand", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "1d6", requires: [{ name: "Cyberarm", requiresSlots: 1 }] },
+  { name: "Medscanner", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "2d6", requires: [{ name: "Cyberarm", requiresSlots: 2 }] },
+  { name: "Popup Grenade Launcher", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "2d6", requires: [{ name: "Cyberarm", requiresSlots: 2 }] },
+  { name: "Popup Melee Weapon", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "2d6", requires: [{ name: "Cyberarm", requiresSlots: 2 }] },
+  { name: "Popup Shield", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "2d6", requires: [{ name: "Cyberarm", requiresSlots: 3 }] },
+  { name: "Popup Ranged Weapon", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "2d6", requires: [{ name: "Cyberarm", requiresSlots: 2 }] },
+  { name: "Quick Change Mount", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "2d6", requires: [{ name: "Cyberarm"}] },
+  { name: "Rippers", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "1d6", },
+  { name: "Scratchers", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "1d6/2", },
+  { name: "Shoulder Cam", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "2d6", requires: [{ name: "Cyberarm", requiresSlots: 2 }] },
+  { name: "Slice 'N Dice", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "1d6" },
+  { name: "Subdermal Grip", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "1d6", requires: [{ name: "Neural Link", requiresSlots: 1 }] },
+  { name: "Techscanner", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "2d6", requires: [{ name: "Cyberarm", requiresSlots: 2 }] },
+  { name: "Toolhand", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "1d6" },
+  { name: "Wolvers", rarity: "Uncommon", type: "Cyberarm", humanityLoss: "2d6" },
+
+  // --- Cyberlegs ---
+  { name: "Cyberfoot", rarity: "Uncommon", type: "Cyberleg", humanityLoss: "1d6/2", stackable: true, maxStacks: 2 },
+  { name: "Grip Foot", rarity: "Uncommon", type: "Cyberleg", humanityLoss: "1d6", requires: [{ name: "Cyberleg", requiresSlots: 1 }] },
+  { name: "Jump Booster", rarity: "Uncommon", type: "Cyberleg", humanityLoss: "1d6", requires: [{ name: "Cyberleg", requiresSlots: 2 }] },
+  { name: "Skate Foot", rarity: "Uncommon", type: "Cyberleg", humanityLoss: "1d6", requires: [{ name: "Cyberleg", requiresSlots: 1 }] },
+  { name: "Talon Foot", rarity: "Uncommon", type: "Cyberleg", humanityLoss: "1d6" },
+  { name: "Web Foot", rarity: "Uncommon", type: "Cyberleg", humanityLoss: "1d6", requires: [{ name: "Cyberleg", requiresSlots: 1 }] },
+  { name: "Hardened Shielding", rarity: "Rare", type: "Cyberleg", humanityLoss: "1d6", requires: [{ name: "Cyberleg" || "Cyberarm", requiresSlots: 1 }] },
+  { name: "Plastic Covering", rarity: "Common", type: "Cyberleg", humanityLoss: "0", requires: [{ name: "Cyberleg" || "Cyberarm" }] },
+  { name: "Realskinn Covering", rarity: "Uncommon", type: "Cyberleg", humanityLoss: "0", requires: [{ name: "Cyberleg" || "Cyberarm"}] },
+  { name: "Superchrome Covering", rarity: "Rare", type: "Cyberleg", humanityLoss: "0", requires: [{ name: "Cyberleg" || "Cyberarm"}] },
+
+    // --- Cyberaudio ---
+  { name: "Amplified Hearing", rarity: "Common", type: "Cyberaudio", humanityLoss: "1d6", requires: [{ name: "Cyberaudio Suite", requiresSlots: 1 }] },
+  { name: "Audio Recorder", rarity: "Uncommon", type: "Cyberaudio", humanityLoss: "1d6/2", requires: [{ name: "Cyberaudio Suite", requiresSlots: 1 }] },
+  { name: "Bug Detector", rarity: "Common", type: "Cyberaudio", humanityLoss: "1d6/2", requires: [{ name: "Cyberaudio Suite", requiresSlots: 1 }] },
+  { name: "Homing Tracer", rarity: "Uncommon", type: "Cyberaudio", humanityLoss: "1d6/2", requires: [{ name: "Cyberaudio Suite", requiresSlots: 1 }] },
+  { name: "Internal Agent", rarity: "Common", type: "Cyberaudio", humanityLoss: "1d6", requires: [{ name: "Cyberaudio Suite", requiresSlots: 1 }] },
+  { name: "Level Damper", rarity: "Common", type: "Cyberaudio", humanityLoss: "1d6/2", requires: [{ name: "Cyberaudio Suite", requiresSlots: 1 }] },
+  { name: "Radio Communicator", rarity: "Common", type: "Cyberaudio", humanityLoss: "1d6/2", requires: [{ name: "Cyberaudio Suite", requiresSlots: 1 }] },
+  { name: "Radio Scanner/Music Player", rarity: "Uncommon", type: "Cyberaudio", humanityLoss: "1d6/2", requires: [{ name: "Cyberaudio Suite", requiresSlots: 1 }] },
+  { name: "Radar Detector", rarity: "Uncommon", type: "Cyberaudio", humanityLoss: "1d6/2", requires: [{ name: "Cyberaudio Suite", requiresSlots: 1 }] },
+  { name: "Scrambler/Descrambler", rarity: "Common", type: "Cyberaudio", humanityLoss: "1d6/2", requires: [{ name: "Cyberaudio Suite", requiresSlots: 1 }] },
+  { name: "Voice Stress Analyzer", rarity: "Common", type: "Cyberaudio", humanityLoss: "1d6", requires: [{ name: "Cyberaudio Suite", requiresSlots: 1 }] },
+
+  // --- Internal Cyberware ---
+  { name: "AudioVox", rarity: "Uncommon", type: "Internal", humanityLoss: "1d6" },
+  { name: "Contraceptive Implant", rarity: "Common", type: "Internal", humanityLoss: "0" },
+  { name: "Enhanced Antibodies", rarity: "Uncommon", type: "Internal", humanityLoss: "1d6/2" },
+  { name: "Cybersnake", rarity: "Rare", type: "Internal", humanityLoss: "4d6" },
+  { name: "Gills", rarity: "Rare", type: "Internal", humanityLoss: "2d6" },
+  { name: "Grafted Muscle and Bone Lace", rarity: "Rare", type: "Internal", humanityLoss: "2d6", stackable: true, effects: [
+      {
+        kind: "stat",
+        stat: "BODY",
+        amount: 2,
+      }
+    ] },
+  { name: "Independent Air Supply", rarity: "Rare", type: "Internal", humanityLoss: "1d6/2" },
+  { name: "Midnight Lady Sexual Implant", rarity: "Uncommon", type: "Internal", humanityLoss: "2d6" },
+  { name: "Mr. Studd Sexual Implant", rarity: "Uncommon", type: "Internal", humanityLoss: "2d6" },
+  { name: "Nasal Filters", rarity: "Uncommon", type: "Internal", humanityLoss: "1d6/2" },
+  { name: "Radar / Sonar Implant", rarity: "Uncommon", type: "Internal", humanityLoss: "2d6" },
+  { name: "Toxin Binders", rarity: "Uncommon", type: "Internal", humanityLoss: "1d6/2" },
+  { name: "Vampyres", rarity: "Rare", type: "Internal", humanityLoss: "4d6" },
+
+  // --- External Cyberware ---
+  { name: "Hidden Holster", rarity: "Uncommon", type: "External", humanityLoss: "2d6", stackable: true },
+  { name: "Skin Weave", rarity: "Rare", type: "External", humanityLoss: "2d6" },
+  { name: "Subdermal Armor", rarity: "Rare", type: "External", humanityLoss: "4d6" },
+  { name: "Subdermal Pocket", rarity: "Uncommon", type: "External", humanityLoss: "1d6", stackable: true },
+
+];
 const priceValues = {
     Everyday: 20,
     Costly: 50,
